@@ -4,19 +4,16 @@ import os
 
 import parser
 
-GO_EXEC = True
+GO_EXEC = False
 PROJECT_NAME = 'django'
 
 if __name__ == '__main__':
     if GO_EXEC:
-        os.chdir('python_parser')
-
-    os.chdir('in')
+        os.chdir('in')
+    else:
+        os.chdir('../in/')
 
     ns = parser.run(PROJECT_NAME)
-
-    if GO_EXEC:
-        os.chdir('..')
 
     os.chdir('../out')
 
