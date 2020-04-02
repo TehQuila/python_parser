@@ -17,7 +17,7 @@ if __name__ == '__main__':
 
     os.chdir('../out')
 
-    with open(PROJECT_NAME + '/package_tree.json', 'w') as f:
+    with open(PROJECT_NAME + '/component_tree.json', 'w') as f:
         json.dump(ns.get_comp_tree_dict(), f)
     with open(PROJECT_NAME + '/relations.json', 'w') as f:
         json.dump(ns.get_rel_dict(), f)

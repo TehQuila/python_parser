@@ -44,7 +44,7 @@ class Package(Token):
 
     def to_dict(self):
         return dict(
-            id=self.gid, name=self.name, qualName=self.qual_name,
+            id=self.gid, name=self.name, qual_name=self.qual_name,
             packages=[p.to_dict() for p in self.packages],
             components=[m.to_dict() for m in self.components],
         )
@@ -61,8 +61,8 @@ class Component(Package, NameSpace):
 
     def to_dict(self):
         return dict(
-            id=self.gid, name=self.name, qualName=self.qual_name,
-            # debug: all=self.all, declared_names=self.declared_names, imported_names=self.imported_names,
+            id=self.gid, name=self.name, qual_name=self.qual_name,
+            all=self.all, declared_names=self.declared_names, imported_names=self.imported_names,
             packages=[p.to_dict() for p in self.packages],
             components=[m.to_dict() for m in self.components],
             classes=[c.to_dict() for c in self.classes],
@@ -84,7 +84,7 @@ class Class(Token, NameSpace):
 
     def to_dict(self):
         return dict(
-            id=self.gid, name=self.name, qual_name=self.qual_name,  # imported_names=self.imported_names,
+            id=self.gid, name=self.name, qual_name=self.qual_name, imported_names=self.imported_names,
             inst_attrs=[a.to_dict() for a in self.inst_attrs],
             inst_meths=[m.to_dict() for m in self.inst_methods],
         )
@@ -100,7 +100,7 @@ class Function(Token, NameSpace):
 
     def to_dict(self):
         return dict(
-            id=self.gid, name=self.name,  # imported_names=self.imported_names,
+            id=self.gid, name=self.name, imported_names=self.imported_names,
             params=[p.to_dict() for p in self.params],
         )
 

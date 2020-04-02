@@ -276,6 +276,7 @@ class ImportParser(IndeterministicParser):
                 # else:  importing from system/external module or importing local variable/constant
 
 
+# todo: parse whether attributes are private or not (name.beginswith('_'))
 class InstanceAttributeParser(DeterministicParser):
     """
     Parses every assignment to self.<var> and tries to determine its type.
