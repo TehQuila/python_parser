@@ -11,7 +11,7 @@ class ProjectNameSpace:
     Creates the component tree and the namespace of defined names.
     """
 
-    def __init__(self, root_dir):
+    def __init__(self, root_dir: str):
         self.gid = 0
         self.root_comp = None
         self.rel_tokens = {}  # lookup table <gid, token>
@@ -27,12 +27,6 @@ class ProjectNameSpace:
 
     def get_comp_tree_dict(self):
         return self.root_comp.to_dict()
-
-    def get_rel_dict(self):
-        d = {}
-        for key in self.relations:
-            d[key] = [rel.to_dict() for rel in self.relations[key]]
-        return d
 
     def _build_namespace(self, root_dir):
         """
@@ -203,7 +197,7 @@ class ProjectNameSpace:
         :type token: Token
         :param name: Accessed name
         :type name: String
-        :return: WToken | None
+        :return: Token | None
         """
         qual_name_list = token.qual_name.split('.')
         lvls = range(len(qual_name_list) + 1)
@@ -243,12 +237,7 @@ class ProjectNameSpace:
             if src_parent == trgt_parent:  # src/trgt are contained in same component
                 dep = Dependency(src.gid, trgt.gid, DepenType.USES)
                 self.dependencies.add(dep)
-                qual_name = src_parent.qual_name
-                if qual_name in self.relations:
-                    self.relations[qual_name].add(dep)
-                else:
-                    self.relations[qual_name] = set()
-                    self.relations[qual_name].add(dep)
+                self.tokens[src_parent.qual_name].relations.add(dep)
             else:
                 self._bubble_relation(src_parent, trgt_parent)
         else:

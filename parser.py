@@ -6,7 +6,7 @@ from tokens import Dependency, DepenType, Stereotype, Class, Var, Association, A
 from utils import qual_name_from_path
 
 
-def run(root_dir):
+def run(root_dir: str):
     print("initializing namespaces...")
     ns = ProjectNameSpace(root_dir)
     print("... found " + str(len(ns.tokens.values())) + " declared components, classes and functions")

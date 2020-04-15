@@ -42,9 +42,12 @@ class Package(Token):
         self.packages = set()
         self.components = set()
 
+        self.relations = set()
+
     def to_dict(self):
         return dict(
             id=self.gid, name=self.name, qual_name=self.qual_name,
+            relations=[r.to_dict() for r in self.relations],
             packages=[p.to_dict() for p in self.packages],
             components=[m.to_dict() for m in self.components],
         )
@@ -63,6 +66,7 @@ class Component(Package, NameSpace):
         return dict(
             id=self.gid, name=self.name, qual_name=self.qual_name,
             all=self.all, declared_names=self.declared_names, imported_names=self.imported_names,
+            relations=[r.to_dict() for r in self.relations],
             packages=[p.to_dict() for p in self.packages],
             components=[m.to_dict() for m in self.components],
             classes=[c.to_dict() for c in self.classes],
@@ -81,10 +85,12 @@ class Class(Token, NameSpace):
 
         self.inst_attrs = set()
         self.inst_methods = set()
+        self.relations = set()
 
     def to_dict(self):
         return dict(
             id=self.gid, name=self.name, qual_name=self.qual_name, imported_names=self.imported_names,
+            relations=[r.to_dict() for r in self.relations],
             inst_attrs=[a.to_dict() for a in self.inst_attrs],
             inst_meths=[m.to_dict() for m in self.inst_methods],
         )
@@ -134,7 +140,7 @@ class Relation:
         return hash(str(self.src_id) + str(self.tgt_id) + str(self.weight))
 
     def to_dict(self):
-        return dict(src=self.src_id, trgt=self.tgt_id, weight=self.weight, type=self.type.value)
+        return dict(source=self.src_id, target=self.tgt_id, weight=self.weight, type=self.type.value)
 
 
 class AssocType(Enum):
